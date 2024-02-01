@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LocationModule } from './location/location.module';
+import { LocationsModule } from './locations/locations.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [LocationModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost:27017/locationsapi'),
+    LocationsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
