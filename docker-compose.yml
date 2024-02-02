@@ -1,0 +1,21 @@
+services:
+  mongo_db:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 2717:27017
+    volumes:
+      - mongo_db:/data/db
+
+  api:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      MONGODB_URI: mongodb://mongo_db:27017
+      DB_NAME: geo_db
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_db: {}
