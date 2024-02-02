@@ -11,7 +11,6 @@ import {
 import { LocationsService } from './locations.service';
 import { UpdateLocationDto } from './dto/update-location.dto';
 import { CreateLocationDto } from './dto/create-location.dto';
-import { Types } from 'mongoose';
 
 @Controller('locations')
 export class LocationsController {
@@ -23,7 +22,7 @@ export class LocationsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: Types.ObjectId) {
+  findOne(@Param('id') id: string) {
     return this.locationsService.findOne(id);
   }
 
@@ -37,7 +36,7 @@ export class LocationsController {
 
   @Patch(':id')
   update(
-    @Param('id') id: Types.ObjectId,
+    @Param('id') id: string,
     @Body(ValidationPipe)
     updateLocationDto: UpdateLocationDto,
   ) {
@@ -45,7 +44,7 @@ export class LocationsController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: Types.ObjectId) {
+  delete(@Param('id') id: string) {
     return this.locationsService.delete(id);
   }
 }
