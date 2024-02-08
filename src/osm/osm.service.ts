@@ -1,63 +1,26 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import env from '../../env';
-import { createQueryInfo } from '../helpers/query';
+import { UnprocessableEntityException } from '@nestjs/common';
 
 @Injectable()
 export class OsmService {
-  /**
-   * Get select filter and add boundary box section all map features
-   * @param bbox Geographic zone boundary limits. Need two points. For example north east and just in diagonal south west
-   * @returns
-   */
-  async getBoundaryBoundsMapFeatures(
-    bbox: string,
-    filters: Array<string> = [],
-  ) {
-    const overpassQuery = createQueryInfo({
-      bbox,
-      outputFormat: env.OUTPUT_FORMAT.JSON,
-      timeOutInSeconds: 50,
-      filters,
-    });
+  async getInfoByCoordAndArea(around: string) {
+    if (!around)
+      throw new UnprocessableEntityException('Parameter «around» is required!');
 
-    Logger.log(`Query:\n ${overpassQuery}`);
+    const query = `[out:json][timeout:50];
+    (
+     node["shop"~"bakery|butcher|chocolate|frozen_food|health_food|seafood|spices|tea|water|food|kiosk|supermarket"](around:${around});
+     node["amenity"~"cafe|fast_food|food_court|restaurant|pharmacy"](around:${around});
+    );
+    out body;`;
 
     try {
-      const res = await axios.post(env.OVERPASS_API, overpassQuery);
-      console.log('OK', bbox);
+      const res = await axios.post(env.OVERPASS_API, query);
       return res.data;
     } catch (err) {
-      console.log('ERROR', bbox);
-    }
-  }
-
-  /**
-   * Format Boundary Box from result that take in Nominatim API Search
-   * @param boundingbox [south, north, west, east]
-   * @returns string 'south,west,north,east'
-   */
-  private async getLocationBoundaryBox(boundingbox: Array<string>) {
-    // Convert [south, north, west, east] => [south,west,north,east]
-    const temp = boundingbox[1];
-    boundingbox[1] = boundingbox[2];
-    boundingbox[2] = temp;
-    return boundingbox.join(',');
-  }
-
-  /**
-   * Obtain boundary box limits from specific zone that uknown boundary box limits data
-   * @param searchTerm name of town, area, province,...
-   * @returns boundary box limits
-   */
-  async getLocationBySearch(searchTerm: string) {
-    try {
-      Logger.log(`Take data from: ${env.NOMINATIM_OSM_API}${searchTerm}`);
-      const res = await axios.get(`${env.NOMINATIM_OSM_API}${searchTerm}`);
-      console.log('OK');
-      return this.getLocationBoundaryBox(res.data[0]['boundingbox']);
-    } catch (err) {
-      console.log('ERROR', `${env.NOMINATIM_OSM_API}${searchTerm}`);
+      return err;
     }
   }
 }
