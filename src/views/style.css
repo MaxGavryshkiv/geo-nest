@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  height: 680px;
+  width: 100%;
+}
+#map {
+  height: 680px;
+  position: relative;
+  z-index: 1;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading {
+  background: rgba(0, 0, 0, 0.5);
+  height: 680px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.loading_text {
+  font-size: 50px;
+  color: antiquewhite;
+}
+.none {
+  display: none;
+}
