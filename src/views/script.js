@@ -13,12 +13,9 @@ let secondMapPoint = null;
 let firstPointMarker = null;
 let secondPointMarker = null;
 const myIcon = L.icon({
-  iconUrl: 'my-icon.png',
-  iconSize: [38, 95],
-  iconAnchor: [22, 94],
-  popupAnchor: [-3, -76],
-  shadowSize: [68, 95],
-  shadowAnchor: [22, 94],
+  iconUrl: './map-marker-svgrepo-com.png',
+  iconSize: [50, 50],
+  iconAnchor: [25, 50],
 });
 
 const getPath = (firstPoint, secondPoint) => {
@@ -135,7 +132,7 @@ const getAllObjects = () => {
           .addTo(map)
           .on('click', (e) => {
             firstMapPoint = `${e.latlng.lng},${e.latlng.lat}`;
-            getNearestObjects(3000, e.latlng.lat, e.latlng.lng);
+            getNearestObjects(2000, e.latlng.lat, e.latlng.lng);
           });
       }),
     )
