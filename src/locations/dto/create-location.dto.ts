@@ -21,8 +21,46 @@ export class CreateLocationDto {
   @IsNumber({}, { each: true })
   coordinates: [number, number];
 
-  @IsEnum(['city', 'museum', 'park', 'library'], {
-    message: 'Valid type required',
-  })
-  type: 'city' | 'museum' | 'park' | 'library';
+  @IsEnum(
+    [
+      'bakery',
+      'butcher',
+      'chocolate',
+      'frozen_food',
+      'health_food',
+      'seafood',
+      'spices',
+      'tea',
+      'water',
+      'food',
+      'kiosk',
+      'supermarket',
+      'cafe',
+      'fast_food',
+      'food_court',
+      'restaurant',
+      'pharmacy',
+    ],
+    {
+      message: 'Valid type required',
+    },
+  )
+  type:
+    | 'bakery'
+    | 'butcher'
+    | 'chocolate'
+    | 'frozen_food'
+    | 'health_food'
+    | 'seafood'
+    | 'spices'
+    | 'tea'
+    | 'water'
+    | 'food'
+    | 'kiosk'
+    | 'supermarket'
+    | 'cafe'
+    | 'fast_food'
+    | 'food_court'
+    | 'restaurant'
+    | 'pharmacy';
 }

@@ -18,6 +18,7 @@ export class OsmService {
 
     try {
       const res = await axios.post(env.OVERPASS_API, query);
+
       return res.data;
     } catch (err) {
       return err;
