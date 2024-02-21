@@ -14,10 +14,45 @@ export class Location {
 
   @Prop({
     type: String,
-    enum: ['city', 'museum', 'park', 'library'],
+    enum: [
+      'bakery',
+      'butcher',
+      'chocolate',
+      'frozen_food',
+      'health_food',
+      'seafood',
+      'spices',
+      'tea',
+      'water',
+      'food',
+      'kiosk',
+      'supermarket',
+      'cafe',
+      'fast_food',
+      'food_court',
+      'restaurant',
+      'pharmacy',
+    ],
     required: true,
   })
-  type: 'city' | 'museum' | 'park' | 'library';
+  type:
+    | 'bakery'
+    | 'butcher'
+    | 'chocolate'
+    | 'frozen_food'
+    | 'health_food'
+    | 'seafood'
+    | 'spices'
+    | 'tea'
+    | 'water'
+    | 'food'
+    | 'kiosk'
+    | 'supermarket'
+    | 'cafe'
+    | 'fast_food'
+    | 'food_court'
+    | 'restaurant'
+    | 'pharmacy';
 }
 
 export const LocationSchema = SchemaFactory.createForClass(Location);
