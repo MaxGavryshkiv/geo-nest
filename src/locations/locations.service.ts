@@ -31,9 +31,11 @@ export class LocationsService {
     id: string,
     updateLocationDto: UpdateLocationDto,
   ): Promise<Location> {
-    const result = await this.locationModel
-      .findByIdAndUpdate({ _id: id }, updateLocationDto, { new: true })
-      .exec();
+    const result = await this.locationModel.findByIdAndUpdate(
+      { _id: id },
+      updateLocationDto,
+      { new: true },
+    );
 
     if (!result) throw new NotFoundException('Location With This Id Not Found');
 

@@ -1,11 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
-export type LocationDocument = HydratedDocument<Location>;
+export type ApiLocationDocument = HydratedDocument<ApiLocation>;
 
-@Schema()
-export class Location {
+@Schema({ collection: 'Location' })
+export class ApiLocation {
+  @Prop({ type: Types.ObjectId, required: true })
+  _id: string;
+
+  @Prop({ type: Number, required: false })
+  __v: number;
+
   @Prop({ type: String, required: true })
   name: string;
 
